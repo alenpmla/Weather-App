@@ -37,6 +37,7 @@ class _WeatherAppMainScreenState extends State<SearchLocationScreen> {
               children: [
                 TextFormField(
                   controller: textEditingController,
+                  autofocus: true,
                   onChanged: (val) {
                     BlocProvider.of<SearchLocationBloc>(context)
                         .add(SearchLocationWithQueryEvent(val));
@@ -107,7 +108,17 @@ class _WeatherAppMainScreenState extends State<SearchLocationScreen> {
         },
       );
     } else if (state is SearchLocationEmpty) {
-      return const Center(child: Text("No results"));
+      return Center(
+          child: Text(
+        "No results",
+        style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 16),
+      ));
+    } else if (state is SearchLocationInitialState) {
+      return Center(
+          child: Text(
+        "Enter you search query",
+        style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 16),
+      ));
     } else {
       return Container();
     }
