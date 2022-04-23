@@ -15,9 +15,8 @@ class LocationServiceImpl implements LocationService {
       position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.lowest);
     } catch (e) {
-      throw ServerException();
+      throw LocationException();
     }
-
     return position;
   }
 }

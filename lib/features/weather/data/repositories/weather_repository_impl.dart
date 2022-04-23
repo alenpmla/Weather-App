@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/core/error/failure.dart';
 import 'package:weather_app/core/services/location_service.dart';
@@ -54,10 +53,8 @@ class WeatherRepositoryImpl implements WeatherRepository {
   @override
   Future<Either<Failure, WeatherDetails>> getDefaultWeatherDetails() async {
     try {
-      debugPrint("getDefaultWeatherDetails called");
       Position position = await locationService.getLocation();
       String latLong = "${position.latitude},${position.longitude}";
-      debugPrint("latLong- $latLong");
       final locationList =
           await weatherDataSource.searchLocationWithLatLng(latLong);
       WeatherDetailModel weatherDetails;
@@ -68,12 +65,22 @@ class WeatherRepositoryImpl implements WeatherRepository {
         weatherDetails =
             await weatherDataSource.getWeatherDetails(defaultLocation);
       }
-      currentWoeId = weatherDetails.woeId.toString();
-      cachedWeatherDetails = weatherDetails.toWeatherDetail();
+      _saveCurrentData(weatherDetails);
+      return Right(weatherDetails.toWeatherDetail());
+    } on LocationException {
+      WeatherDetailModel weatherDetails;
+      weatherDetails =
+          await weatherDataSource.getWeatherDetails(defaultLocation);
+      _saveCurrentData(weatherDetails);
       return Right(weatherDetails.toWeatherDetail());
     } on ServerException {
       return Left(ServerFailure());
     }
+  }
+
+  void _saveCurrentData(WeatherDetailModel weatherDetails) {
+    currentWoeId = weatherDetails.woeId.toString();
+    cachedWeatherDetails = weatherDetails.toWeatherDetail();
   }
 
   @override
@@ -104,7 +111,6 @@ class WeatherRepositoryImpl implements WeatherRepository {
 
   @override
   WeatherDetails? getCachedWeatherData() {
-    // TODO: implement getLatestWeatherData
     return cachedWeatherDetails;
   }
 
