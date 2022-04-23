@@ -85,7 +85,8 @@ class WeatherDetailModel {
         title: title,
         locationType: locationType,
         timezone: timezone,
-        time: DateFormat("yyyy-MM-dd'T'HH:mm'").parse(time?.substring(0,17) ?? ""),
+        time: DateFormat("yyyy-MM-dd'T'HH:mm'")
+            .parse(time?.substring(0, 17) ?? ""),
         sunRise: sunRise,
         sunSet: sunSet,
         timezoneName: timezoneName,

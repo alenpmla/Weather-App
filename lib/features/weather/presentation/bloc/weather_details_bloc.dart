@@ -5,7 +5,6 @@ import 'package:weather_app/features/weather/domain/entities/weather_details.dar
 import '../../domain/repositories/weather_repository.dart';
 
 part 'weather_details_event.dart';
-
 part 'weather_details_state.dart';
 
 class WeatherDetailsBloc
@@ -15,8 +14,10 @@ class WeatherDetailsBloc
   WeatherDetailsBloc({required this.repository})
       : super(WeatherDetailsLoading()) {
     on<GetWeatherDetailsEvent>((event, emit) async {
+      emit(WeatherDetailsLoading());
       var failureOrSuccess = await repository.getWeatherDetails(event.woeId);
       var isDegreeCelsius = repository.isDegreeCelsius();
+      add(ChangeCurrentDay(0));
       var currentDay = repository.getSelectedDayIndex();
       failureOrSuccess.fold(
         (failure) => emit(WeatherDetailsFailure()),
@@ -28,6 +29,7 @@ class WeatherDetailsBloc
     });
 
     on<GetDefaultWeatherDetailsEvent>((event, emit) async {
+      emit(WeatherDetailsLoading());
       var failureOrSuccess = await repository.getDefaultWeatherDetails();
       var isDegreeCelsius = repository.isDegreeCelsius();
       var currentDay = repository.getSelectedDayIndex();

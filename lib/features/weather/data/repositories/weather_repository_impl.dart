@@ -55,7 +55,6 @@ class WeatherRepositoryImpl implements WeatherRepository {
   Future<Either<Failure, WeatherDetails>> getDefaultWeatherDetails() async {
     try {
       debugPrint("getDefaultWeatherDetails called");
-
       Position position = await locationService.getLocation();
       String latLong = "${position.latitude},${position.longitude}";
       debugPrint("latLong- $latLong");

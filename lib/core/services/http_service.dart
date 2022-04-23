@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
+import 'package:weather_app/core/error/exceptions.dart';
 
+import '../network/network_info.dart';
 import '../utils/config_reader.dart';
 
 abstract class HttpService {
@@ -19,8 +20,9 @@ abstract class HttpService {
 class HttpServiceImpl implements HttpService {
   final Client client;
   final ConfigReader configReader;
+  final NetworkInfo networkInfo;
 
-  HttpServiceImpl(this.client, this.configReader);
+  HttpServiceImpl(this.client, this.configReader, this.networkInfo);
 
   @override
   Future<Response> postRequest(
@@ -35,9 +37,13 @@ class HttpServiceImpl implements HttpService {
   @override
   Future<Response> getRequest(
       {required String path, Map<String, dynamic>? queryParams}) async {
-    final response = await client.get(
-        Uri.https(configReader.getBaseUrl(), path, queryParams));
-    return response;
+    try {
+      final response = await client
+          .get(Uri.https(configReader.getBaseUrl(), path, queryParams));
+      return response;
+    } on Exception {
+      throw ServerException();
+    }
   }
 
   @override

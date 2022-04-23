@@ -9,8 +9,6 @@ class SearchLocationWithQueryEvent extends SearchLocationEvent {
   SearchLocationWithQueryEvent(this.query);
 }
 
-
-class SetDefaultLocation extends SearchLocationEvent {
-
-  SetDefaultLocation();
+class SetInitialStateEvent extends SearchLocationEvent {
+  SetInitialStateEvent();
 }

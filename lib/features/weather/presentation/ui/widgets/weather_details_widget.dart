@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_app/features/weather/domain/entities/weather_details.dart';
 
+import '../../../../../core/utils/color_constants.dart';
 import '../../bloc/weather_details_bloc.dart';
+import '../screens/search_location_screen.dart';
 
 class WeatherDetailsWidget extends StatelessWidget {
   final WeatherDetails weatherDetails;
@@ -26,8 +27,7 @@ class WeatherDetailsWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("${consolidatedWeather?.weatherStateName} ",
-            style:
-                GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w500)),
+            style: Theme.of(context).textTheme.headline2),
         const SizedBox(
           height: 16,
         ),
@@ -35,7 +35,7 @@ class WeatherDetailsWidget extends StatelessWidget {
           aspectRatio: 4 / 3,
           child: Container(
             decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.1),
+                color: Colors.blue.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16)),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -46,12 +46,30 @@ class WeatherDetailsWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("${weatherDetails.title} ",
-                          style: GoogleFonts.inter(
-                              fontSize: 16, fontWeight: FontWeight.w400)),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline2
+                              ?.copyWith(fontSize: 16)),
                       const SizedBox(
                         width: 4,
                       ),
-                      const Icon(Icons.add_location)
+                      InkWell(
+                          onTap: () async {
+                            var woeId = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const SearchLocationScreen()),
+                            );
+                            if (woeId != null) {
+                              BlocProvider.of<WeatherDetailsBloc>(context).add(
+                                  GetWeatherDetailsEvent(woeId.toString()));
+                            }
+                          },
+                          child: const Icon(
+                            Icons.edit_location_sharp,
+                            color: subFontColor,
+                          ))
                     ],
                   ),
                   Expanded(
@@ -83,28 +101,36 @@ class WeatherDetailsWidget extends StatelessWidget {
                     ? "${consolidatedWeather?.tempInCelsius?.toInt()}\u2103"
                     : "${consolidatedWeather?.tempInCelsius?.toFahrenheit().toInt()}\u2109",
                 textAlign: TextAlign.center,
-                style: GoogleFonts.inter(
-                    fontSize: 55, fontWeight: FontWeight.bold)),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1
+                    ?.copyWith(fontSize: 55, fontWeight: FontWeight.bold)),
           ),
         ),
         const SizedBox(
           height: 16,
         ),
         Text("Humidity: ${consolidatedWeather?.humidity}%",
-            style:
-                GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w500)),
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(fontWeight: FontWeight.w500, fontSize: 16)),
         const SizedBox(
           height: 8,
         ),
         Text("Pressure: ${consolidatedWeather?.airPressure} hPa",
-            style:
-                GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w500)),
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(fontWeight: FontWeight.w500, fontSize: 16)),
         const SizedBox(
           height: 8,
         ),
         Text("Wind: ${consolidatedWeather?.windSpeed?.toStringAsFixed(1)} km/h",
-            style:
-                GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w500)),
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(fontWeight: FontWeight.w500, fontSize: 16)),
       ],
     );
   }

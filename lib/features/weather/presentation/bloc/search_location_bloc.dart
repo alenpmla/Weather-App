@@ -5,7 +5,6 @@ import 'package:weather_app/features/weather/domain/repositories/weather_reposit
 import '../../domain/entities/location.dart';
 
 part 'search_location_event.dart';
-
 part 'search_location_state.dart';
 
 class SearchLocationBloc
@@ -13,15 +12,22 @@ class SearchLocationBloc
   final WeatherRepository repository;
 
   SearchLocationBloc({required this.repository})
-      : super(SearchLocationLoading()) {
+      : super(SearchLocationInitialState()) {
     on<SearchLocationWithQueryEvent>((event, emit) async {
       var failureOrSuccess = await repository.searchLocation(event.query);
       failureOrSuccess.fold(
-        (failure) => emit(SearchLocationFailure()),
+        (failure) => emit(SearchLocationEmpty()),
         (locationList) {
-          emit(SearchLocationSuccess(locationList));
+          if (locationList.isNotEmpty) {
+            emit(SearchLocationSuccess(locationList));
+          } else {
+            emit(SearchLocationEmpty());
+          }
         },
       );
+    });
+    on<SetInitialStateEvent>((event, emit) async {
+      emit(SearchLocationInitialState());
     });
   }
 }
