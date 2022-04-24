@@ -10,14 +10,16 @@ class FailureWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = Theme.of(context).brightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(
+        Icon(
           Icons.warning_amber_outlined,
           size: 30,
-          color: subFontColor,
+          color: isDarkMode ? subFontColor : subFontColorLight,
         ),
         const SizedBox(
           height: 20,
