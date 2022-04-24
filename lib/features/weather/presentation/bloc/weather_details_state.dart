@@ -5,9 +5,9 @@ abstract class WeatherDetailsState {}
 
 class WeatherDetailsEmpty extends WeatherDetailsState {}
 
-class WeatherDetailsLoading extends WeatherDetailsState {}
+class InitialLoadingState extends WeatherDetailsState {}
 
-class CityChangedLoading extends WeatherDetailsState {}
+class LoadingState extends WeatherDetailsState {}
 
 class WeatherDetailsFailure extends WeatherDetailsState {}
 

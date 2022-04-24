@@ -14,28 +14,29 @@ class WeatherDetailsBloc
   final WeatherRepository repository;
 
   WeatherDetailsBloc({required this.repository})
-      : super(WeatherDetailsLoading()) {
+      : super(InitialLoadingState()) {
     on<GetWeatherDetailsEvent>((event, emit) async {
-      emit(WeatherDetailsLoading());
+      emit(InitialLoadingState());
       var failureOrSuccess = await repository.getWeatherDetails(event.woeId);
       add(ChangeCurrentDay(0));
       _checkAndEmitSuccess(failureOrSuccess, emit);
     });
 
     on<CityChangedEvent>((event, emit) async {
-      emit(CityChangedLoading());
+      emit(LoadingState());
       var failureOrSuccess = await repository.getWeatherDetails(event.woeId);
       add(ChangeCurrentDay(0));
       _checkAndEmitSuccess(failureOrSuccess, emit);
     });
 
     on<GetDefaultWeatherDetailsEvent>((event, emit) async {
-      emit(WeatherDetailsLoading());
+      emit(InitialLoadingState());
       var failureOrSuccess = await repository.getDefaultWeatherDetails();
       _checkAndEmitSuccess(failureOrSuccess, emit);
     });
 
     on<RefreshCurrentWeatherDetails>((event, emit) async {
+      emit(LoadingState());
       var failureOrSuccess = await repository.refreshCurrentWeatherDetails();
       _checkAndEmitSuccess(failureOrSuccess, emit);
     });
