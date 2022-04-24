@@ -11,21 +11,34 @@ class UpComingWeatherList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
+    bool isPortrait = orientation == Orientation.portrait;
     List<Widget> listItem = [];
     int itemLength = weatherDetails.consolidatedWeather?.length ?? 0;
     for (int i = 0; i < itemLength; i++) {
       ConsolidatedWeather? consolidatedWeather =
           weatherDetails.consolidatedWeather?.elementAt(i);
       listItem.add(Padding(
-        padding: EdgeInsets.only(left: i == 0 ? 16 : 0),
+        padding: isPortrait
+            ? EdgeInsets.only(left: i == 0 ? 16 : 0,right: 8)
+            : EdgeInsets.only(top: i == 0 ? 16 : 0,bottom: 8),
         child: SingleWeatherListItem(consolidatedWeather, i, selectedDay == i),
       ));
     }
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: listItem,
-      ),
-    );
+    if (isPortrait) {
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: listItem,
+        ),
+      );
+    } else {
+      return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: listItem,
+        ),
+      );
+    }
   }
 }

@@ -36,6 +36,7 @@ class _WeatherAppMainScreenState extends State<WeatherHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
     return Scaffold(
       body: BlocConsumer<WeatherDetailsBloc, WeatherDetailsState>(
         listener: (context, state) {
@@ -74,9 +75,12 @@ class _WeatherAppMainScreenState extends State<WeatherHomeScreen> {
                 enablePullDown: true,
                 header: const WaterDropHeader(),
                 onRefresh: _onRefresh,
-                child: SingleChildScrollView(
-                    child:
-                        _bodyContent(state.weatherDetails, state.selectedDay)),
+                child: orientation == Orientation.portrait
+                    ? SingleChildScrollView(
+                        child: _bodyContent(state.weatherDetails,
+                            state.selectedDay, orientation))
+                    : _bodyContent(
+                        state.weatherDetails, state.selectedDay, orientation),
               ),
             );
           } else if (state is InitialLoadingState) {
@@ -91,19 +95,40 @@ class _WeatherAppMainScreenState extends State<WeatherHomeScreen> {
     );
   }
 
-  Column _bodyContent(WeatherDetails weatherDetails, int selectedDay) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16),
-          child: WeatherDetailsWidget(
-              weatherDetails: weatherDetails, selectedDay: selectedDay),
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-        UpComingWeatherList(weatherDetails, selectedDay),
-      ],
-    );
+  Widget _bodyContent(
+      WeatherDetails weatherDetails, int selectedDay, Orientation orientation) {
+    if (orientation == Orientation.portrait) {
+      return Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16),
+            child: WeatherDetailsWidget(
+                weatherDetails: weatherDetails, selectedDay: selectedDay),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          UpComingWeatherList(weatherDetails, selectedDay),
+        ],
+      );
+    } else {
+      return Row(
+        children: [
+          Flexible(
+            flex: 2,
+            fit: FlexFit.tight,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              child: WeatherDetailsWidget(
+                  weatherDetails: weatherDetails, selectedDay: selectedDay),
+            ),
+          ),
+          Flexible(
+              flex: 1,
+              fit: FlexFit.tight,
+              child: UpComingWeatherList(weatherDetails, selectedDay)),
+        ],
+      );
+    }
   }
 }

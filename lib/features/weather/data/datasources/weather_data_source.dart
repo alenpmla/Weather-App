@@ -57,7 +57,6 @@ class WeatherDataSourceImpl implements WeatherDataSource {
     String path = "/api/location/$woeId/";
     final response = await httpService.getRequest(path: path);
     if (response.statusCode == 200) {
-      debugPrint("response.body - ${response.body}");
       return WeatherDetailModel.fromJson(json.decode(response.body));
     } else {
       throw ServerException();
