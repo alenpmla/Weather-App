@@ -1,6 +1,5 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:weather_app/core/services/http_service.dart';
 import 'package:weather_app/core/services/location_service.dart';
 import 'package:weather_app/features/weather/data/datasources/weather_data_source.dart';
@@ -47,7 +46,6 @@ Future<void> init() async {
 
   //external
   sl.registerLazySingleton(() => Client());
-  sl.registerLazySingleton(() => InternetConnectionChecker());
   sl.registerLazySingleton<LocationService>(
     () => LocationServiceImpl(),
   );

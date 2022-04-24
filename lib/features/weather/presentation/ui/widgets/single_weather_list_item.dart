@@ -82,4 +82,5 @@ class SingleWeatherListItem extends StatelessWidget {
       ),
     );
   }
+
 }
