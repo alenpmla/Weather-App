@@ -22,7 +22,6 @@ class WeatherDetailsWidget extends StatelessWidget {
         weatherDetails.consolidatedWeather?.elementAt(selectedDay);
     var brightness = Theme.of(context).brightness;
     bool isDarkMode = brightness == Brightness.dark;
-    debugPrint("isDarkMode - ${isDarkMode}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
