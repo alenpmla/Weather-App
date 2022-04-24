@@ -1,16 +1,13 @@
 # weather_app
 
-A new Flutter project.
+A simple weather app which uses https://www.metaweather.com/api/
 
-## Getting Started
+On startup, the location permission will be prompted to the user, if they give the location permission,
+the nearest city's weather details will be shown.
 
-This project is a starting point for a Flutter application.
+If the user denied the location access, a default fallback location
+is set(Currently it is Berlin) and that city details will be shown
 
-A few resources to get you started if this is your first Flutter project:
+User can also choose different location clicking the pick location icon on the weather image card.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Clean architecture with bloc pattern is used in the app.

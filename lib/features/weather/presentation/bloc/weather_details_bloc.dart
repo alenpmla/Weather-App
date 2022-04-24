@@ -7,7 +7,6 @@ import 'package:weather_app/features/weather/domain/entities/weather_details.dar
 import '../../domain/repositories/weather_repository.dart';
 
 part 'weather_details_event.dart';
-
 part 'weather_details_state.dart';
 
 class WeatherDetailsBloc

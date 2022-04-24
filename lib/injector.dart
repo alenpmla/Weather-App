@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:weather_app/core/network/network_info.dart';
 import 'package:weather_app/core/services/http_service.dart';
 import 'package:weather_app/core/services/location_service.dart';
 import 'package:weather_app/features/weather/data/datasources/weather_data_source.dart';
@@ -43,10 +42,7 @@ Future<void> init() async {
   //core
   sl.registerLazySingleton(() => ConfigReader());
   sl.registerLazySingleton<HttpService>(
-    () => HttpServiceImpl(sl(), sl(), sl()),
-  );
-  sl.registerLazySingleton<NetworkInfo>(
-    () => NetworkInfoImpl(sl()),
+    () => HttpServiceImpl(sl(), sl()),
   );
 
   //external

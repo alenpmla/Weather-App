@@ -3,7 +3,6 @@ import 'package:meta/meta.dart';
 import 'package:weather_app/features/weather/domain/repositories/weather_repository.dart';
 
 part 'app_settings_event.dart';
-
 part 'app_settings_state.dart';
 
 class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
@@ -16,7 +15,7 @@ class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
     });
 
     on<SwitchWeatherUnitEvent>((event, emit) async {
-      bool isCelsius =  repository.switchTempUnit();
+      bool isCelsius = repository.switchTempUnit();
       emit(AppSettingsSuccess(isCelsius));
     });
   }

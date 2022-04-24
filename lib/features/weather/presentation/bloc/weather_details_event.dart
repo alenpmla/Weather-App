@@ -19,7 +19,6 @@ class GetDefaultWeatherDetailsEvent extends WeatherDetailsEvent {}
 
 class RefreshCurrentWeatherDetails extends WeatherDetailsEvent {}
 
-
 class ChangeCurrentDay extends WeatherDetailsEvent {
   final int dayIndex;
 
