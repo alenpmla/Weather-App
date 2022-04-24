@@ -16,6 +16,7 @@ class CityChangedEvent extends WeatherDetailsEvent {
 }
 
 class GetDefaultWeatherDetailsEvent extends WeatherDetailsEvent {}
+
 class RetryOnFailureEvent extends WeatherDetailsEvent {}
 
 class RefreshCurrentWeatherDetails extends WeatherDetailsEvent {}
