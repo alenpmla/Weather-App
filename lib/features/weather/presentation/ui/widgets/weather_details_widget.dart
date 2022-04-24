@@ -20,6 +20,8 @@ class WeatherDetailsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     ConsolidatedWeather? consolidatedWeather =
         weatherDetails.consolidatedWeather?.elementAt(selectedDay);
+    var brightness =Theme.of(context).brightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -63,9 +65,10 @@ class WeatherDetailsWidget extends StatelessWidget {
                                   .add(CityChangedEvent(woeId.toString()));
                             }
                           },
-                          child: const Icon(
+                          child: Icon(
                             Icons.edit_location_sharp,
-                            color: subFontColor,
+                            color:
+                                isDarkMode ? subFontColor : subFontColorLight,
                           ))
                     ],
                   ),

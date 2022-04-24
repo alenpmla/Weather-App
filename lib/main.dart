@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Weather App',
-        theme: ThemeData(
+        darkTheme: ThemeData(
             fontFamily: 'Avenir',
             primarySwatch: Colors.blue,
             scaffoldBackgroundColor: mainBgColor,
@@ -61,6 +61,34 @@ class MyApp extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     color: mainFontColor),
                 subtitle1: TextStyle(color: subFontColor))),
+        theme: ThemeData(
+            fontFamily: 'Avenir',
+            primarySwatch: Colors.blue,
+            scaffoldBackgroundColor: mainBgColorLight,
+            backgroundColor: mainBgColorLight,
+            cardColor: mainPanelColorLight,
+            primaryColor: primaryColor,
+            errorColor: errorColor,
+            textTheme: const TextTheme(
+                headline1: TextStyle(
+                    fontFamily: 'Avenir',
+                    fontSize: 21,
+                    color: mainFontColorLight,
+                    fontWeight: FontWeight.w900),
+                headline2: TextStyle(
+                    fontFamily: 'Avenir',
+                    fontSize: 21,
+                    color: mainFontColorLight,
+                    fontWeight: FontWeight.w500),
+                bodyText1: TextStyle(
+                    fontFamily: 'SFProDisplay',
+                    fontWeight: FontWeight.w400,
+                    color: mainFontColorLight),
+                bodyText2: TextStyle(
+                    fontFamily: 'SFProText',
+                    fontWeight: FontWeight.w400,
+                    color: mainFontColorLight),
+                subtitle1: TextStyle(color: subFontColorLight))),
         themeMode: ThemeMode.dark,
         home: const WeatherHomeScreen(),
       ),
