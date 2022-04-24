@@ -15,5 +15,5 @@ class WeatherDetailsSuccess extends WeatherDetailsState {
   final WeatherDetails weatherDetails;
   final int selectedDay;
 
-  WeatherDetailsSuccess(this.weatherDetails,this.selectedDay);
+  WeatherDetailsSuccess(this.weatherDetails, this.selectedDay);
 }

@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Weather App',
         darkTheme: ThemeData(
+            brightness: Brightness.dark,
             fontFamily: 'Avenir',
             primarySwatch: Colors.blue,
             scaffoldBackgroundColor: mainBgColor,
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
                     color: mainFontColor),
                 subtitle1: TextStyle(color: subFontColor))),
         theme: ThemeData(
+            brightness: Brightness.light,
             fontFamily: 'Avenir',
             primarySwatch: Colors.blue,
             scaffoldBackgroundColor: mainBgColorLight,

@@ -4,6 +4,7 @@ part of 'app_settings_bloc.dart';
 abstract class AppSettingsState {}
 
 class AppSettingsInitial extends AppSettingsState {}
+
 class AppSettingsSuccess extends AppSettingsState {
   final bool isCelsius;
 

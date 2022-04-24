@@ -6,9 +6,7 @@ class UpComingWeatherList extends StatelessWidget {
   final WeatherDetails weatherDetails;
   final int selectedDay;
 
-  const UpComingWeatherList(
-      this.weatherDetails,this.selectedDay,
-      {Key? key})
+  const UpComingWeatherList(this.weatherDetails, this.selectedDay, {Key? key})
       : super(key: key);
 
   @override
@@ -20,8 +18,7 @@ class UpComingWeatherList extends StatelessWidget {
           weatherDetails.consolidatedWeather?.elementAt(i);
       listItem.add(Padding(
         padding: EdgeInsets.only(left: i == 0 ? 16 : 0),
-        child: SingleWeatherListItem(
-            consolidatedWeather, i, selectedDay == i),
+        child: SingleWeatherListItem(consolidatedWeather, i, selectedDay == i),
       ));
     }
     return SingleChildScrollView(

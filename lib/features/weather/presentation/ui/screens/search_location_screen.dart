@@ -62,7 +62,6 @@ class _WeatherAppMainScreenState extends State<SearchLocationScreen> {
                     hintText: "Search",
                     hintStyle: Theme.of(context).textTheme.bodyText2?.copyWith(
                           fontSize: 17,
-                          color: subFontColor,
                         ),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -75,7 +74,6 @@ class _WeatherAppMainScreenState extends State<SearchLocationScreen> {
                   ),
                   style: Theme.of(context).textTheme.bodyText2?.copyWith(
                         fontSize: 17,
-                        color: mainFontColor,
                       ),
                 ),
                 Expanded(child: buildListView(state)),
