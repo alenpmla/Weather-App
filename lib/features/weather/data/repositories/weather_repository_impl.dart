@@ -13,7 +13,7 @@ import '../model/weather_detail_model.dart';
 class WeatherRepositoryImpl implements WeatherRepository {
   final WeatherDataSource weatherDataSource;
   final LocationService locationService;
-  static const String defaultLocation = "638242";
+  static const String defaultLocation = "638242";//currently it is set to berlin.
   String? currentWoeId;
   bool isCelsius = true;
   int currentDay = 0;
