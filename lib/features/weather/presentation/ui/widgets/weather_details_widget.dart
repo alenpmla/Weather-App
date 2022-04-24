@@ -59,8 +59,8 @@ class WeatherDetailsWidget extends StatelessWidget {
                                       const SearchLocationScreen()),
                             );
                             if (woeId != null) {
-                              BlocProvider.of<WeatherDetailsBloc>(context).add(
-                                  GetWeatherDetailsEvent(woeId.toString()));
+                              BlocProvider.of<WeatherDetailsBloc>(context)
+                                  .add(CityChangedEvent(woeId.toString()));
                             }
                           },
                           child: const Icon(

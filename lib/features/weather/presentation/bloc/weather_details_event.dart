@@ -9,6 +9,12 @@ class GetWeatherDetailsEvent extends WeatherDetailsEvent {
   GetWeatherDetailsEvent(this.woeId);
 }
 
+class CityChangedEvent extends WeatherDetailsEvent {
+  final String woeId;
+
+  CityChangedEvent(this.woeId);
+}
+
 class GetDefaultWeatherDetailsEvent extends WeatherDetailsEvent {}
 
 class RefreshCurrentWeatherDetails extends WeatherDetailsEvent {}

@@ -75,12 +75,14 @@ class _WeatherAppMainScreenState extends State<WeatherHomeScreen> {
                 header: const WaterDropHeader(),
                 onRefresh: _onRefresh,
                 child: SingleChildScrollView(
-                    child: _bodyContent(state.weatherDetails,
-                        state.selectedDay)),
+                    child:
+                        _bodyContent(state.weatherDetails, state.selectedDay)),
               ),
             );
           } else if (state is WeatherDetailsLoading) {
             return const LoadingSplashWidget();
+          } else if (state is CityChangedLoading) {
+            return const Center(child: CircularProgressIndicator());
           } else {
             return const FailureWidget();
           }
@@ -89,15 +91,13 @@ class _WeatherAppMainScreenState extends State<WeatherHomeScreen> {
     );
   }
 
-  Column _bodyContent(
-      WeatherDetails weatherDetails,int selectedDay) {
+  Column _bodyContent(WeatherDetails weatherDetails, int selectedDay) {
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 16, right: 16),
           child: WeatherDetailsWidget(
-              weatherDetails: weatherDetails,
-              selectedDay: selectedDay),
+              weatherDetails: weatherDetails, selectedDay: selectedDay),
         ),
         const SizedBox(
           height: 16,
