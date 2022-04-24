@@ -23,7 +23,7 @@ class WeatherDetailsBloc
     });
 
     on<CityChangedEvent>((event, emit) async {
-      emit(LoadingState());
+      emit(SecondaryLoadingState());
       var failureOrSuccess = await repository.getWeatherDetails(event.woeId);
       add(ChangeCurrentDay(0));
       _checkAndEmitSuccess(failureOrSuccess, emit);
@@ -35,8 +35,13 @@ class WeatherDetailsBloc
       _checkAndEmitSuccess(failureOrSuccess, emit);
     });
 
+    on<RetryOnFailureEvent>((event, emit) async {
+      emit(SecondaryLoadingState());
+      var failureOrSuccess = await repository.getDefaultWeatherDetails();
+      _checkAndEmitSuccess(failureOrSuccess, emit);
+    });
+
     on<RefreshCurrentWeatherDetails>((event, emit) async {
-      emit(LoadingState());
       var failureOrSuccess = await repository.refreshCurrentWeatherDetails();
       _checkAndEmitSuccess(failureOrSuccess, emit);
     });

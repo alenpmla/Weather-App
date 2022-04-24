@@ -81,7 +81,7 @@ class _WeatherAppMainScreenState extends State<WeatherHomeScreen> {
             );
           } else if (state is InitialLoadingState) {
             return const LoadingSplashWidget();
-          } else if (state is LoadingState) {
+          } else if (state is SecondaryLoadingState) {
             return const Center(child: CircularProgressIndicator());
           } else {
             return const FailureWidget();

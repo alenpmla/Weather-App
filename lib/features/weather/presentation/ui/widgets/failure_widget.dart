@@ -35,7 +35,7 @@ class FailureWidget extends StatelessWidget {
         CupertinoButton(
           onPressed: () {
             BlocProvider.of<WeatherDetailsBloc>(context)
-                .add(GetDefaultWeatherDetailsEvent());
+                .add(RetryOnFailureEvent());
           },
           child: Text(
             'Retry',

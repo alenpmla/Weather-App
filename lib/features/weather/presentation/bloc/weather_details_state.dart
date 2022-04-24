@@ -7,7 +7,7 @@ class WeatherDetailsEmpty extends WeatherDetailsState {}
 
 class InitialLoadingState extends WeatherDetailsState {}
 
-class LoadingState extends WeatherDetailsState {}
+class SecondaryLoadingState extends WeatherDetailsState {}
 
 class WeatherDetailsFailure extends WeatherDetailsState {}
 
