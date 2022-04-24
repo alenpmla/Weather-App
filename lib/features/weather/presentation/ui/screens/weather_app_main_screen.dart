@@ -6,6 +6,7 @@ import 'package:weather_app/features/weather/presentation/bloc/weather_details_b
 
 import '../../../domain/entities/weather_details.dart';
 import '../widgets/failure_widget.dart';
+import '../widgets/loading_splash_widget.dart';
 import '../widgets/upcoming_weather_list.dart';
 import '../widgets/weather_details_widget.dart';
 
@@ -74,12 +75,12 @@ class _WeatherAppMainScreenState extends State<WeatherHomeScreen> {
                 header: const WaterDropHeader(),
                 onRefresh: _onRefresh,
                 child: SingleChildScrollView(
-                    child: _bodyContent(state.weatherDetails, state.isCelsius,
+                    child: _bodyContent(state.weatherDetails,
                         state.selectedDay)),
               ),
             );
           } else if (state is WeatherDetailsLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const LoadingSplashWidget();
           } else {
             return const FailureWidget();
           }
@@ -89,20 +90,19 @@ class _WeatherAppMainScreenState extends State<WeatherHomeScreen> {
   }
 
   Column _bodyContent(
-      WeatherDetails weatherDetails, bool isCelsius, int selectedDay) {
+      WeatherDetails weatherDetails,int selectedDay) {
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 16, right: 16),
           child: WeatherDetailsWidget(
               weatherDetails: weatherDetails,
-              isCelsius: isCelsius,
               selectedDay: selectedDay),
         ),
         const SizedBox(
           height: 16,
         ),
-        UpComingWeatherList(weatherDetails, isCelsius, selectedDay),
+        UpComingWeatherList(weatherDetails, selectedDay),
       ],
     );
   }

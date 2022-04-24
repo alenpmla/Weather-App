@@ -5,6 +5,7 @@ import 'package:weather_app/injector.dart' as di;
 
 import 'core/utils/color_constants.dart';
 import 'core/utils/config_reader.dart';
+import 'features/weather/presentation/bloc/app_settings_bloc.dart';
 import 'features/weather/presentation/bloc/search_location_bloc.dart';
 import 'features/weather/presentation/bloc/weather_details_bloc.dart';
 import 'injector.dart';
@@ -27,6 +28,8 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<WeatherDetailsBloc>(create: (_) => sl<WeatherDetailsBloc>()),
         Provider<SearchLocationBloc>(create: (_) => sl<SearchLocationBloc>()),
+        Provider<AppSettingsBloc>(
+            create: (_) => sl<AppSettingsBloc>()..add(LoadAppSettingsEvent())),
       ],
       child: MaterialApp(
         title: 'Weather App',

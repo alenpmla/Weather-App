@@ -4,11 +4,10 @@ import 'package:weather_app/features/weather/presentation/ui/widgets/single_weat
 
 class UpComingWeatherList extends StatelessWidget {
   final WeatherDetails weatherDetails;
-  final bool isCelsius;
   final int selectedDay;
 
   const UpComingWeatherList(
-      this.weatherDetails, this.isCelsius, this.selectedDay,
+      this.weatherDetails,this.selectedDay,
       {Key? key})
       : super(key: key);
 
@@ -22,7 +21,7 @@ class UpComingWeatherList extends StatelessWidget {
       listItem.add(Padding(
         padding: EdgeInsets.only(left: i == 0 ? 16 : 0),
         child: SingleWeatherListItem(
-            consolidatedWeather, isCelsius, i, selectedDay == i),
+            consolidatedWeather, i, selectedDay == i),
       ));
     }
     return SingleChildScrollView(

@@ -10,6 +10,7 @@ import 'package:weather_app/features/weather/domain/repositories/weather_reposit
 import 'package:weather_app/features/weather/presentation/bloc/weather_details_bloc.dart';
 
 import 'core/utils/config_reader.dart';
+import 'features/weather/presentation/bloc/app_settings_bloc.dart';
 import 'features/weather/presentation/bloc/search_location_bloc.dart';
 
 final sl = GetIt.instance;
@@ -21,6 +22,9 @@ Future<void> init() async {
   );
   sl.registerFactory(
     () => SearchLocationBloc(repository: sl()),
+  );
+  sl.registerFactory(
+    () => AppSettingsBloc(repository: sl()),
   );
 
   // Repository

@@ -105,8 +105,9 @@ class WeatherRepositoryImpl implements WeatherRepository {
   }
 
   @override
-  void switchTempUnit() {
+  bool switchTempUnit() {
     isCelsius = !isCelsius;
+    return isCelsius;
   }
 
   @override

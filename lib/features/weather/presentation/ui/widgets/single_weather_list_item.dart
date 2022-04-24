@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_app/features/weather/presentation/bloc/app_settings_bloc.dart';
 
 import '../../../domain/entities/weather_details.dart';
 import '../../bloc/weather_details_bloc.dart';
 
 class SingleWeatherListItem extends StatelessWidget {
   final ConsolidatedWeather? consolidatedWeather;
-  final bool isCelsius;
   final bool isSelected;
   final int index;
 
   const SingleWeatherListItem(
-      this.consolidatedWeather, this.isCelsius, this.index, this.isSelected,
+      this.consolidatedWeather, this.index, this.isSelected,
       {Key? key})
       : super(key: key);
 
@@ -58,14 +58,23 @@ class SingleWeatherListItem extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                Text(
-                    isCelsius
-                        ? "${consolidatedWeather?.minTempInCelsius?.toInt()}\u2103/${consolidatedWeather?.maxTempInCelsius?.toInt()}\u2103"
-                        : "${consolidatedWeather?.minTempInCelsius?.toFahrenheit().toInt()}\u2109/${consolidatedWeather?.maxTempInCelsius?.toFahrenheit().toInt()}\u2109",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2
-                        ?.copyWith(fontWeight: FontWeight.w500, fontSize: 16))
+                BlocBuilder<AppSettingsBloc, AppSettingsState>(
+                  builder: (context, state) {
+                    if (state is AppSettingsSuccess) {
+                      return Text(
+                          state.isCelsius
+                              ? "${consolidatedWeather?.minTempInCelsius?.toInt()}\u2103/${consolidatedWeather?.maxTempInCelsius?.toInt()}\u2103"
+                              : "${consolidatedWeather?.minTempInCelsius?.toFahrenheit().toInt()}\u2109/${consolidatedWeather?.maxTempInCelsius?.toFahrenheit().toInt()}\u2109",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2
+                              ?.copyWith(
+                                  fontWeight: FontWeight.w500, fontSize: 16));
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
+                )
               ],
             ),
           ),
@@ -74,5 +83,4 @@ class SingleWeatherListItem extends StatelessWidget {
     );
   }
 
-  String getUnitSymbol() => isCelsius ? "\u2103" : "\u2109";
 }

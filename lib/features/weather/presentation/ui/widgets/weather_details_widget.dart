@@ -4,19 +4,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:weather_app/features/weather/domain/entities/weather_details.dart';
 
 import '../../../../../core/utils/color_constants.dart';
+import '../../bloc/app_settings_bloc.dart';
 import '../../bloc/weather_details_bloc.dart';
 import '../screens/search_location_screen.dart';
 
 class WeatherDetailsWidget extends StatelessWidget {
   final WeatherDetails weatherDetails;
-  final bool isCelsius;
   final int selectedDay;
 
   const WeatherDetailsWidget(
-      {required this.weatherDetails,
-      Key? key,
-      required this.isCelsius,
-      required this.selectedDay})
+      {required this.weatherDetails, Key? key, required this.selectedDay})
       : super(key: key);
 
   @override
@@ -93,18 +90,24 @@ class WeatherDetailsWidget extends StatelessWidget {
           width: double.infinity,
           child: InkWell(
             onTap: () {
-              BlocProvider.of<WeatherDetailsBloc>(context)
-                  .add(ChangeWeatherUnitEvent());
+              BlocProvider.of<AppSettingsBloc>(context)
+                  .add(SwitchWeatherUnitEvent());
             },
-            child: Text(
-                isCelsius
-                    ? "${consolidatedWeather?.tempInCelsius?.toInt()}\u2103"
-                    : "${consolidatedWeather?.tempInCelsius?.toFahrenheit().toInt()}\u2109",
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1
-                    ?.copyWith(fontSize: 55, fontWeight: FontWeight.bold)),
+            child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
+              builder: (context, state) {
+                if (state is AppSettingsSuccess) {
+                  return Text(
+                      state.isCelsius
+                          ? "${consolidatedWeather?.tempInCelsius?.toInt()}\u2103"
+                          : "${consolidatedWeather?.tempInCelsius?.toFahrenheit().toInt()}\u2109",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline1?.copyWith(
+                          fontSize: 55, fontWeight: FontWeight.bold));
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
           ),
         ),
         const SizedBox(

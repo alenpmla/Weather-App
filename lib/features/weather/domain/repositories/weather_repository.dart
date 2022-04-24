@@ -10,7 +10,7 @@ abstract class WeatherRepository {
 
   bool isDegreeCelsius();
 
-  void switchTempUnit();
+  bool switchTempUnit();
 
   void setCurrentDayIndex(int index);
 
