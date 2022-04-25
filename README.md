@@ -1,4 +1,4 @@
-# weather_app
+# Weather App
 
 * A simple weather app which uses https://www.metaweather.com/api/
 
